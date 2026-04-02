@@ -35,12 +35,12 @@ export function MCQList({
     );
   }, [mcqs, searchQuery]);
 
-  const totalPages = Math.ceil(filteredMCQs.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedMCQs = filteredMCQs.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const showPagination = itemsPerPage > 0 && filteredMCQs.length > itemsPerPage;
+  const totalPages = showPagination ? Math.ceil(filteredMCQs.length / itemsPerPage) : 1;
+  const startIndex = showPagination ? (currentPage - 1) * itemsPerPage : 0;
+  const paginatedMCQs = showPagination
+    ? filteredMCQs.slice(startIndex, startIndex + itemsPerPage)
+    : filteredMCQs;
 
   // Reset to first page when search query changes
   const handleSearchChange = (query: string) => {
@@ -100,7 +100,7 @@ export function MCQList({
       )}
 
       {/* Pagination */}
-      {totalPages > 1 && (
+      {showPagination && (
         <div className="flex items-center justify-between">
           <p className="text-sm text-gray-600">
             Page {currentPage} of {totalPages}

@@ -157,7 +157,7 @@ export function QuizContent({ allMCQs, allTopics }: QuizContentProps) {
               <Input
                 type="number"
                 min={1}
-                max={Math.min(50, filteredMCQs.length)}
+                max={filteredMCQs.length}
                 value={numQuestions}
                 onChange={(e) =>
                   setNumQuestions(Math.max(1, parseInt(e.target.value) || 10))
@@ -165,7 +165,7 @@ export function QuizContent({ allMCQs, allTopics }: QuizContentProps) {
                 className="w-24"
               />
               <span className="text-sm text-gray-600">
-                max: {Math.min(50, filteredMCQs.length)}
+                max: {filteredMCQs.length}
               </span>
             </div>
           </div>

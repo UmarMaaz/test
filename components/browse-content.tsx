@@ -102,7 +102,7 @@ export function BrowseContent({ allMCQs, allTopics }: BrowseContentProps) {
                 mcqs={filteredMCQs}
                 onAnswerSelect={handleAnswerSelect}
                 selectedAnswers={selectedAnswers}
-                itemsPerPage={5}
+                itemsPerPage={0}
               />
             ) : (
               <div className="text-center py-12">
