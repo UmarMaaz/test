@@ -53,32 +53,30 @@ export function MCQCard({
           {mcq.options.map((option, index) => {
             const isCorrect = index === mcq.correctAnswer;
             const isSelected = index === selectedAnswer;
-            const isWrong = isSelected && !isCorrect;
-
+            const isClickable = !isQuizMode || selectedAnswer === null;
             let optionClasses =
               'w-full p-3 text-left border rounded-lg transition-colors ';
 
-            if (isQuizMode) {
-              if (isSelected) {
-                optionClasses += isCorrect
-                  ? 'border-green-500 bg-green-50'
-                  : 'border-red-500 bg-red-50';
-              } else if (showAnswer && isCorrect) {
+            if (isSelected) {
+              if (isCorrect) {
                 optionClasses += 'border-green-500 bg-green-50';
               } else {
-                optionClasses +=
-                  'border-gray-200 hover:border-gray-400 hover:bg-gray-50';
+                optionClasses += 'border-red-500 bg-red-50';
               }
-            } else {
+            } else if (showAnswer && isCorrect) {
+              optionClasses += 'border-green-500 bg-green-50';
+            } else if (isClickable) {
               optionClasses +=
                 'border-gray-200 hover:border-gray-400 hover:bg-gray-50 cursor-pointer';
+            } else {
+              optionClasses += 'border-gray-200 opacity-80';
             }
 
             return (
               <button
                 key={index}
-                onClick={() => !isQuizMode && onAnswerSelect?.(index)}
-                disabled={isQuizMode && selectedAnswer !== null}
+                onClick={() => isClickable && onAnswerSelect?.(index)}
+                disabled={!isClickable}
                 className={optionClasses}
               >
                 <div className="flex items-center gap-3">
